@@ -37,15 +37,22 @@ class _HomePageState extends State<HomePage> {
                   ),
                   FlatButton(
                       onPressed: () async {
-                        final url = Uri.parse("http://10.0.2.2:3000/hii");
-                        http.Response response = await http.get(url);
-                        print(response.body.toString());
+                        http.Client client = http.Client();
+                        final url0 = Uri.parse("http://10.0.2.2:3000/upload");
+                        http.Response response0 =
+                            await client.post(url0, body: {'name': name});
+                        print("response0 ${response0.body.toString()}");
+                        // final url = Uri.parse("http://10.0.2.2:3000/hii");
+                        // http.Response response = await http.get(url);
+                        // print(response.body.toString());
                       },
                       child: Text("Upload"))
                 ],
               ),
             ),
           ),
+          Image.network(
+              "https://res.cloudinary.com/arvindcloud/image/upload/v1631215669/bwhwzdkuzypb1b73bhuo.jpg"),
         ],
       ),
     );
