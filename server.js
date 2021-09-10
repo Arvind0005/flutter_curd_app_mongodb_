@@ -53,25 +53,32 @@ app.get('/hii',function(req,res)
 
 app.post('/upload',function(req,res)
 {
-
-    var new_namemod = new Name({
-        name:req.body.name,
-    });
-    new_namemod.save(function(err)
-    {
-        if(err)
-        {
-            throw err;
-        }
-        else{
-            console.log("saved");
-        }
-    })
+    var result0;
     cloudinary.uploader.upload('./assets/IMG_20210506_160409.jpg', function(error, result) 
     {
+        imageurl0= result.url;
         console.log(result, error)
-    });
+    }).then(
+        function()
+        {
+            var new_namemod = new Name({
+            name:req.body.name,
+            imageurl: imageurl0,
+            });
 
+            new_namemod.save(function(err)
+            {
+                if(err)
+                {
+                    throw err;
+                }
+                else{
+                    console.log("saved");
+                }
+            })
+        }
+    );
+    
 })
 app.get('/',function(req,res)
 {
